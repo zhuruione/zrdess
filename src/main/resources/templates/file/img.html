@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<script src="/js/jquery.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+</body>
+<script>
+
+    $(function () {
+        var list = new Array();
+        var obj = {
+            indexs:0
+        };
+        $.get("/getimgsinfo",
+            function (data) {
+                data = data.datas
+                var index=0
+                $.each(data, function (k, v) {
+                    index++
+                    list[index] = k
+                })
+                loadimg(list,obj)
+
+            })
+        $(window).scroll(function(){
+            var doc_height = $(document).height();
+            var scroll_top = $(document).scrollTop();
+            var window_height = $(window).height();
+            if(scroll_top == 0){
+                alert("到顶啦");
+            }else if(scroll_top + window_height >= doc_height-1000){
+                loadimg(list,obj)
+            }
+        });
+    })
+
+    function loadimg(list,obj) {
+        var max=obj.indexs+5;
+        while (obj.indexs<list.length&&obj.indexs<max){
+            $("body").append('<img style="width: 100%" src="/getimg?id=' + list[obj.indexs] + '"/>')
+            obj.indexs++
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.system.dao.MydirMapper">
+  <resultMap id="BaseResultMap" type="org.example.system.model.Mydir">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="dir_f" jdbcType="INTEGER" property="dirF" />
+    <result column="dirleave" jdbcType="INTEGER" property="dirleave" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from my_dir
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.example.system.model.Mydir">
+    insert into my_dir (id, path, name, 
+      dir_f, dirleave)
+    values (#{id,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{dirF,jdbcType=INTEGER}, #{dirleave,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="org.example.system.model.Mydir">
+    update my_dir
+    set path = #{path,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      dir_f = #{dirF,jdbcType=INTEGER},
+      dirleave = #{dirleave,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, path, name, dir_f, dirleave
+    from my_dir
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPath" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id, path, name, dir_f, dirleave
+    from my_dir
+    where path = #{path ,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, path, name, dir_f, dirleave
+    from my_dir
+  </select>
+  <delete id="delectall">
+    delete
+    from  my_dir
+  </delete>
+  <select id="selectbylandf" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select id, path, name, dir_f, dirleave
+    from my_dir
+    where dir_f=#{dir_f,jdbcType=INTEGER} and dirleave=#{dirleave,jdbcType=INTEGER}
+  </select>
+</mapper>

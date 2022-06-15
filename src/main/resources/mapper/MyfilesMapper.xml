@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.system.dao.MyfilesMapper">
+  <resultMap id="BaseResultMap" type="org.example.system.model.Myfiles">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="dir" jdbcType="INTEGER" property="dir" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from my_files
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.example.system.model.Myfiles">
+    insert into my_files (id, name, path, 
+      dir)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{dir,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="org.example.system.model.Myfiles">
+    update my_files
+    set name = #{name,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      dir = #{dir,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, path, dir
+    from my_files
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, path, dir
+    from my_files
+  </select>
+  <select id="selectbydir" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select id, name, path, dir
+    from my_files
+    where dir=#{dir,jdbcType=INTEGER}
+  </select>
+  <delete id="delectall">
+    delete
+    from  my_files
+  </delete>
+</mapper>
